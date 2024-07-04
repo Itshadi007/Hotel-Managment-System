@@ -171,6 +171,7 @@
     <Compile Include="Areas\Dashboard\Controllers\AccomoodationTypesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\ViewModel\AccommodationTypesModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -217,6 +218,7 @@
     <Content Include="Areas\Dashboard\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Dashboard\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\AccommodationTypes\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\AccommodationTypes\_Listing.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -294,6 +296,16 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HMS.Entity\HMS.Entity.csproj">
+      <Project>{2D261695-198F-49AD-A698-D5D850BE2C1D}</Project>
+      <Name>HMS.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HMS.Services\HMS.Services.csproj">
+      <Project>{2683EC96-3038-4349-BFF7-660CACAA00C2}</Project>
+      <Name>HMS.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HMS.Services;
+using HMS.Web.Areas.Dashboard.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +10,18 @@ namespace HMS.Web.Areas.Dashboard.Controllers
 {
     public class AccommodationTypesController : Controller
     {
-        // GET: Dashboard/AccomoodationTypes
+       AccommodationTypesService accommodationTypesService = new AccommodationTypesService();
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Listing()
+        {
+            AccommodationTypesListingModel model = new AccommodationTypesListingModel();
+
+         model.accommodationTypes = accommodationTypesService.GetAllAccommodationTypes();
+            return PartialView("_Listing", model);
         }
     }
 }
