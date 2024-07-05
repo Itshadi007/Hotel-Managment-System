@@ -1,0 +1,59 @@
+﻿@model HMS.Web.Areas.Dashboard.ViewModel.AccommodationTypeActionModel
+
+@if (Model != null)
+{
+<div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5">Create Accommodation Type</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form id="actionForm">
+          <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input  class="form-control" name="Name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name">
+              
+          </div>
+          <div class="mb-3">
+              <label  class="form-label">Description</label>
+              <textarea name="Description" class="form-control" placeholder="Enter Description"></textarea>
+            
+          </div>
+      
+       
+      </form>
+
+        <div class="errorDiv"></div>
+    </div>
+    <div class="modal-footer">
+        <button id="actionButton" type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+    </div>
+</div>
+}
+
+<script>
+    $("#actionButton").click(function ()
+    {
+          $.ajax({
+              url: '@Url.Action("Action", "AccommodationTypes")',
+              type :"post",
+              data: $("#actionForm").serialize(),
+              success: function (response) {
+                  debugger;
+          if (response.Success) {
+              location.reload();
+          }
+          else
+          {
+              $(".errorDiv").html(response.Message)
+          }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+          console.log("Error: " + textStatus + " " + errorThrown);
+          // You can show an error message to the user here if needed
+      }
+  });
+    })
+</script>

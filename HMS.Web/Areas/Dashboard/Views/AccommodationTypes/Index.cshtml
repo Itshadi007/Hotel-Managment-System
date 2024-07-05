@@ -5,5 +5,35 @@
 }
 
 <h2>Accommodation Types</h2>
+<hr />
+<div class="input-group mb-4">
+    <input type="text" class="form-control" placeholder="Search Here" aria-label="Recipient's username with two button addons">
+    <button class="btn btn-outline-primary" type="button">Search</button>
+    <button class="btn btn-outline-secondary" type="button">Reset</button>
+    <button id="CreateButton" class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#actionModal">Create</button>
+</div>
 
 @{ Html.RenderAction("Listing");}
+
+
+<!-- Modal -->
+<div class="modal fade" id="actionModal" tabindex="-1">
+    <div class="modal-dialog">
+
+    </div>
+</div>
+
+<script>
+    $("#CreateButton").click(function () {
+        $.ajax({
+            url: '@Url.Action("Action", "AccommodationTypes")',
+            success: function (response) {
+                $("#actionModal .modal-dialog").html(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error: " + textStatus + " " + errorThrown);
+                // You can show an error message to the user here if needed
+            }
+        });
+    });
+</script>

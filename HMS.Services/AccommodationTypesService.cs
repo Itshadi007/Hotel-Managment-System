@@ -16,5 +16,14 @@ namespace HMS.Services
 
             return context.accommodationTypes.AsEnumerable();
         }
+
+        public bool SaveAccommodationType(AccommodationType accommodationType)
+        {
+            var context = new HMSContext();
+
+            context.accommodationTypes.Add(accommodationType);
+
+            return context.SaveChanges() >0;
+        }
     }
 }
