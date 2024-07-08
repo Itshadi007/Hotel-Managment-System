@@ -1,0 +1,54 @@
+﻿
+@model HMS.Web.Areas.Dashboard.ViewModel.AccommodationTypeActionModel
+
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5">
+                <span >Delete Accommodation Type</span>
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="actionForm">
+                <input type="hidden" name="ID" value="@Model.ID" />
+
+            </form>
+            <div class="alert alert-danger" role="alert">
+               Are You Sure you Want To Delete This Accommodation Type?
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+            <button id="actionButton" type="button" class="btn btn-danger"><i class="fa-solid fa-trash-alt me-1"></i>Delete</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-times me-1"></i>Close</button>
+
+        </div>
+    </div>
+}
+
+<script>
+    $("#actionButton").click(function ()
+    {
+          $.ajax({
+              url: '@Url.Action("Delete", "AccommodationTypes")',
+              type :"post",
+              data: $("#actionForm").serialize(),
+              success: function (response) {
+                  debugger;
+          if (response.Success) {
+              location.reload();
+          }
+          else
+          {
+              $(".errorDiv").html(response.Message)
+          }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+          console.log("Error: " + textStatus + " " + errorThrown);
+          // You can show an error message to the user here if needed
+      }
+  });
+    })
+</script>

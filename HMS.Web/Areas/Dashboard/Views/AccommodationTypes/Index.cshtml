@@ -6,13 +6,20 @@
 
 <h2>Accommodation Types</h2>
 <hr />
-<div class="input-group mb-4">
-    <input type="text" class="form-control" placeholder="Search Here" aria-label="Recipient's username with two button addons">
-    <button class="btn btn-outline-primary" type="button">Search</button>
-    <button class="btn btn-outline-secondary" type="button">Reset</button>
-    <button id="CreateButton" class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#actionModal">Create</button>
+<form class="d-flex flex-wrap gap-2 align-items-center">
+
+    <div class="input-group mb-4">
+
+
+        <input type="text" name="Search_Bar" required class="form-control" placeholder="Search Here">
+        <button  class="btn btn-outline-primary mb-lg-1" type="submit"> <i class="fa-solid fa-magnifying-glass me-1"></i>Search</button>
+        <button class="btn btn-outline-secondary" type="button">  <i class="fa-solid fa-redo-alt me-1"></i>Reset</button>
+        <button data-href="@Url.Action("Action", "AccommodationTypes")" class="data-btn btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#actionModal">  <i class="fa-solid fa-plus me-1"></i>Create</button>
+
+
 </div>
 
+</form>
 @{ Html.RenderAction("Listing");}
 
 
@@ -24,9 +31,9 @@
 </div>
 
 <script>
-    $("#CreateButton").click(function () {
+    $(".data-btn").click(function () {
         $.ajax({
-            url: '@Url.Action("Action", "AccommodationTypes")',
+            url: $(this).attr("data-href"),
             success: function (response) {
                 $("#actionModal .modal-dialog").html(response);
             },
