@@ -13,20 +13,20 @@ namespace HMS.Web.Areas.Dashboard.Controllers
     public class AccommodationTypesController : Controller
     {
         AccommodationTypesService accommodationTypesService = new AccommodationTypesService();
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Listing()
+        public ActionResult Index(string Search_Bar)
         {
             AccommodationTypesListingModel model = new AccommodationTypesListingModel();
 
-            model.accommodationTypes = accommodationTypesService.GetAllAccommodationTypes();
+            model.Search_Bar = Search_Bar;
+            model.accommodationTypes = accommodationTypesService.SearchlAccommodationTypes(Search_Bar);
 
 
-            return PartialView("_Listing", model);
+            return View(model);
+        
+            
         }
+
+  
 
         [HttpGet]
         public ActionResult Action(int? ID)

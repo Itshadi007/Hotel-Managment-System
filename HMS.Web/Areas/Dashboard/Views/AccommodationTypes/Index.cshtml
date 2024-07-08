@@ -1,4 +1,4 @@
-﻿
+﻿@model HMS.Web.Areas.Dashboard.ViewModel.AccommodationTypesListingModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
@@ -11,16 +11,16 @@
     <div class="input-group mb-4">
 
 
-        <input type="text" name="Search_Bar" required class="form-control" placeholder="Search Here">
+        <input type="text" name="Search_Bar" value="@Model.Search_Bar" required class="form-control" placeholder="Search Here" >
         <button  class="btn btn-outline-primary mb-lg-1" type="submit"> <i class="fa-solid fa-magnifying-glass me-1"></i>Search</button>
-        <button class="btn btn-outline-secondary" type="button">  <i class="fa-solid fa-redo-alt me-1"></i>Reset</button>
+        <a class="btn btn-outline-secondary" href="@Url.Action("index", "AccommodationTypes")">  <i class="fa-solid fa-redo-alt me-1"></i>Reset</a>
         <button data-href="@Url.Action("Action", "AccommodationTypes")" class="data-btn btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#actionModal">  <i class="fa-solid fa-plus me-1"></i>Create</button>
 
 
 </div>
 
 </form>
-@{ Html.RenderAction("Listing");}
+@{ Html.RenderPartial("_Listing",Model);}
 
 
 <!-- Modal -->

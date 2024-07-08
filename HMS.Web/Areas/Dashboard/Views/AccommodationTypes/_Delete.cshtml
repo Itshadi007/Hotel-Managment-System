@@ -37,8 +37,8 @@
               data: $("#actionForm").serialize(),
               success: function (response) {
                   debugger;
-          if (response.Success) {
-              location.reload();
+                  if (response.Success) {
+                      window.location.href ="@Url.Action("Index", "AccommodationTypes")";
           }
           else
           {

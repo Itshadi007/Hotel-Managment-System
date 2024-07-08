@@ -9,6 +9,7 @@ namespace HMS.Web.Areas.Dashboard.ViewModel
     public class AccommodationTypesListingModel
     {
         public IEnumerable<AccommodationType> accommodationTypes { get; set; }
+        public string Search_Bar { get; set; }
     }
 
     public class AccommodationTypeActionModel
