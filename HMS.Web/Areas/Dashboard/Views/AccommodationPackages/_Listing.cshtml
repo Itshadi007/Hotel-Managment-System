@@ -1,0 +1,59 @@
+﻿
+@model  HMS.Web.Areas.Dashboard.ViewModel.AccommodationPackageListingModel
+
+@if (Model != null && Model.accommodationpackages !=null  &&  Model.accommodationpackages.Count()>0 ) 
+{
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th scope="col">Name</th>
+                <th scope="col">Accommodation Type</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var accomodationPackage in Model.accommodationpackages)
+            {
+                <tr>
+
+                    <td>@accomodationPackage.Name</td>
+                    <td>
+                        @if (accomodationPackage.AccommodationType != null)
+                        {
+                            @(accomodationPackage.AccommodationType?.Name ?? "No Type")
+                        }
+
+                    </td>
+
+
+                    <td>
+                        <button data-href="@Url.Action("Action", "AccommodationPackages", new { ID = accomodationPackage.ID })"
+                                type="button"
+                                class="data-btn btn btn-success"
+                                data-bs-toggle="modal"
+                                data-bs-target="#actionModal">
+                            <i class="fa-solid fa-trash-alt me-1"></i>Edit
+                        </button>
+                        <button data-href="@Url.Action("Delete", "AccommodationPackages", new { ID = accomodationPackage.ID })" type="button" class="data-btn btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#actionModal">
+                            <i class="fa-solid fa-edit me-1"></i>Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        Sorry! No record Available.
+    </div>
+}
+
+

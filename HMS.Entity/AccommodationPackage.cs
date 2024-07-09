@@ -12,7 +12,7 @@ namespace HMS.Entity
 
         public int AccommodationTypeID { get; set; }
 
-        public AccommodationType AccommodationType { get; set; }
+        public  AccommodationType AccommodationType { get; set; }
 
         public string Name { get; set; }
 
