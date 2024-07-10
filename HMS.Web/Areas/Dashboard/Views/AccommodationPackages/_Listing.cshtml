@@ -1,7 +1,7 @@
 ﻿
 @model  HMS.Web.Areas.Dashboard.ViewModel.AccommodationPackageListingModel
 
-@if (Model != null && Model.accommodationpackages !=null  &&  Model.accommodationpackages.Count()>0 ) 
+@if (Model != null && Model.accommodationpackages != null && Model.accommodationpackages.Count() > 0)
 {
 
     <table class="table table-striped">
@@ -10,6 +10,7 @@
 
                 <th scope="col">Name</th>
                 <th scope="col">Accommodation Type</th>
+                <th scope="col">Fee Per Night</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -25,9 +26,15 @@
                         {
                             @(accomodationPackage.AccommodationType?.Name ?? "No Type")
                         }
+                        else
+                        {
+                            @("No Type")
+                        }
+
+
 
                     </td>
-
+                    <td>@accomodationPackage.FeePerNight</td>
 
                     <td>
                         <button data-href="@Url.Action("Action", "AccommodationPackages", new { ID = accomodationPackage.ID })"
@@ -48,6 +55,48 @@
 
         </tbody>
     </table>
+
+                //PAGINATION lOGIC simple and usefull
+
+                if (Model.pager.EndPage > 1)
+                {
+
+        <nav>
+            <ul class="pagination">
+                @if (Model.pager.CurrentPage > 1)
+        {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccommodationPackages")">
+                            First
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccommodationPackages" , new { pageNo = Model.pager.CurrentPage-1 , search_Bar = Model.Search_Bar, AccommodationTypeID = Model.AccommodationTypeID})"> Previous</a>
+                    </li>
+                }
+
+    @for (var page = Model.pager.StartPage; page <= Model.pager.EndPage; page++)
+                {
+                    <li class="page-item @(page == Model.pager.CurrentPage ? "active" : "")">
+
+                        <a class="page-link" href="@Url.Action("Index","AccommodationPackages" , new { pageNo = page, search_Bar = Model.Search_Bar, AccommodationTypeID = Model.AccommodationTypeID })">@page</a>
+                    </li>
+                }
+
+@if (Model.pager.CurrentPage < Model.pager.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccommodationPackages" , new { pageNo = Model.pager.CurrentPage+1 , search_Bar = Model.Search_Bar, AccommodationTypeID = Model.AccommodationTypeID})">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccommodationPackages" , new { pageNo = Model.pager.TotalPages , search_Bar = Model.Search_Bar, AccommodationTypeID = Model.AccommodationTypeID})">Last</a>
+                    </li>
+                }
+
+            </ul>
+        </nav>
+    }
+
 }
 else
 {

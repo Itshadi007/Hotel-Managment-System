@@ -26,11 +26,11 @@ namespace HMS.Services
             var accommodationType = context.accommodationTypes.AsQueryable();
 
 
-           if (!string.IsNullOrEmpty(Search_Bar))
+            if (!string.IsNullOrEmpty(Search_Bar))
             {
-               accommodationType= accommodationType.Where(a=>a.Name.ToLower().Contains(Search_Bar.ToLower()));
+                accommodationType = accommodationType.Where(a => a.Name.ToLower().Contains(Search_Bar.ToLower()));
             }
-           return accommodationType.AsEnumerable();
+            return accommodationType.AsEnumerable();
         }
 
 
@@ -62,15 +62,17 @@ namespace HMS.Services
 
         public bool DeleteAccommodationType(AccommodationType accommodationType)
         {
-            var context = new HMSContext();
+            using (var context = new HMSContext())
+            {
 
-             //   context.accommodationTypes.Remove(accommodationType.ID);
+                //   context.accommodationTypes.Remove(accommodationType.ID);
 
-            context.Entry(accommodationType).State = System.Data.Entity.EntityState.Deleted;
+                context.Entry(accommodationType).State = System.Data.Entity.EntityState.Deleted;
 
-            //     context.Entry(accommodationType).State = System.Data.Entity.EntityState.Modified;
+                //     context.Entry(accommodationType).State = System.Data.Entity.EntityState.Modified;
 
-            return context.SaveChanges() > 0;
+                return context.SaveChanges() > 0;
+            };
         }
     }
 }

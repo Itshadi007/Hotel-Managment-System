@@ -32,13 +32,13 @@
     $("#actionButton").click(function ()
     {
           $.ajax({
-              url: '@Url.Action("Delete", "AccommodationTypes")',
+              url: '@Url.Action("Delete", "AccommodationPackages")',
               type :"post",
               data: $("#actionForm").serialize(),
               success: function (response) {
                   debugger;
                   if (response.Success) {
-                      window.location.href ="@Url.Action("Index", "AccommodationTypes")";
+                      window.location.href ="@Url.Action("Index", "AccommodationPackages")";
           }
           else
           {

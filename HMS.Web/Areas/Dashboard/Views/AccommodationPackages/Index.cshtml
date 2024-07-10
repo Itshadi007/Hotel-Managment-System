@@ -4,14 +4,30 @@
     Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Accommodation Types</h2>
+<h2>Accommodation Packages</h2>
 <hr />
 <form class="d-flex flex-wrap gap-2 align-items-center">
 
     <div class="input-group mb-4">
 
 
-        <input type="text" name="Search_Bar" value="@Model.Search_Bar" required class="form-control" placeholder="Search Here">
+
+        <input type="text" name="Search_Bar" value="@Model.Search_Bar"  class="form-control" placeholder="Search Here">
+        @if (Model.AccommodationTypes != null && Model.AccommodationTypes.Count() > 0)
+        {
+            <select name="AccommodationTypeID" class="form-control">
+                <option value="0">
+                   Select Type
+                </option>
+              @foreach(var accommodationTypes in Model.AccommodationTypes)
+                {
+                  <option value="@accommodationTypes.ID" @(accommodationTypes.ID == Model.AccommodationTypeID ? "selected" : string.Empty )>
+                      @accommodationTypes.Name
+                  </option>
+                }
+            </select>
+        }
+
         <button class="btn btn-outline-primary mb-lg-1" type="submit"> <i class="fa-solid fa-magnifying-glass me-1"></i>Search</button>
         <a class="btn btn-outline-secondary" href="@Url.Action("index", "AccommodationPackages")">  <i class="fa-solid fa-redo-alt me-1"></i>Reset</a>
         <button data-href="@Url.Action("Action", "AccommodationPackages")" class="data-btn btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#actionModal">  <i class="fa-solid fa-plus me-1"></i>Create</button>

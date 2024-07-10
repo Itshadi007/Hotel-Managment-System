@@ -1,6 +1,7 @@
 ﻿using HMS.Entity;
 using HMS.Services;
 using HMS.Web.Areas.Dashboard.ViewModel;
+using HMS.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,28 @@ namespace HMS.Web.Areas.Dashboard.Controllers
 
         AccommodationTypesService AccommodationTypesService = new AccommodationTypesService();
 
-        public ActionResult Index(string Search_Bar)
+        public ActionResult Index(string Search_Bar, int? AccommodationTypeID,int? PageNo)
         {
+            int recordCount = 5;
+
+            PageNo = PageNo ?? 1;
             AccommodationPackageListingModel model = new AccommodationPackageListingModel();
 
             model.Search_Bar = Search_Bar;
-            model.accommodationpackages = accommodationPakageServices.SearchlAccommodationTypes(Search_Bar);
+            model.AccommodationTypeID = AccommodationTypeID;
+         
 
+
+
+            model.accommodationpackages = accommodationPakageServices.SearchAccommodationPackage(Search_Bar, AccommodationTypeID, PageNo.Value,recordCount);
+            // var abc = accommodationPakageServices.SearchAccommodationPackage(Search_Bar);
+
+            model.AccommodationTypes = AccommodationTypesService.GetAllAccommodationTypes();
+
+            var totalRecords = accommodationPakageServices.SearchAccommodationPackageCount(Search_Bar, AccommodationTypeID);
+
+
+            model.pager = new Pager(totalRecords, PageNo, recordCount);
 
             return View(model);
 
@@ -40,10 +56,10 @@ namespace HMS.Web.Areas.Dashboard.Controllers
 
                 model.ID = accommodationPackage.ID;
                 model.Name = accommodationPackage.Name;
-            model.AccommodationTypeID = accommodationPackage.AccommodationTypeID;
+                model.AccommodationTypeID = accommodationPackage.AccommodationTypeID;
                 model.NoOfRoom = accommodationPackage.NoOfRoom;
                 model.FeePerNight = accommodationPackage.FeePerNight;
-                 model.AccommodationType = accommodationPackage.AccommodationType;
+                model.AccommodationType = accommodationPackage.AccommodationType;
 
 
             }
@@ -75,7 +91,8 @@ namespace HMS.Web.Areas.Dashboard.Controllers
                 accommodationPackage.Name = model.Name;
                 accommodationPackage.AccommodationTypeID = model.ID;
                 accommodationPackage.AccommodationTypeID = model.AccommodationTypeID;
-
+                accommodationPackage.NoOfRoom = model.NoOfRoom;
+                accommodationPackage.FeePerNight = model.FeePerNight;   
                 result = accommodationPakageServices.SaveAccommodationType(accommodationPackage);
 
             }
@@ -95,11 +112,16 @@ namespace HMS.Web.Areas.Dashboard.Controllers
         [HttpGet]
         public ActionResult Delete(int ID)
         {
-            AccommodationTypeActionModel model = new AccommodationTypeActionModel();
+            AccommodationPackageActionModel model = new AccommodationPackageActionModel();
 
-            var accommodationType = accommodationPakageServices.GetAccommodationType(ID);
+            var accommodationPackage = accommodationPakageServices.GetAccommodationType(ID);
 
-            model.ID = accommodationType.ID;
+            model.ID = accommodationPackage.ID;
+            model.Name = accommodationPackage.Name;
+            model.AccommodationTypeID = accommodationPackage.AccommodationTypeID;
+            model.NoOfRoom = accommodationPackage.NoOfRoom;
+            model.FeePerNight = accommodationPackage.FeePerNight;
+            model.AccommodationType = accommodationPackage.AccommodationType;
 
             return PartialView("_Delete", model);
         }
@@ -121,10 +143,11 @@ namespace HMS.Web.Areas.Dashboard.Controllers
             }
             else
             {
-                jsonResult.Data = new { Success = true, Message = "Unable to Perform Action Accommodation Type" };
+                jsonResult.Data = new { Success = true, Message = "Unable to Perform Action Accommodation Pacakge" };
             }
 
             return jsonResult;
+
 
         }
     }
