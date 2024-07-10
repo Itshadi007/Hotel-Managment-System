@@ -8,11 +8,8 @@ namespace HMS.Web.Areas.Dashboard.ViewModel
 {
     public class AccommodationListingModel
     {
-        public IEnumerable<AccommodationPackage> accommodationpackages { get; set; }
+        public IEnumerable<Accommodation> accommodation{ get; set; }
         public string Search_Bar { get; set; }
-       public IEnumerable<AccommodationType> AccommodationTypes { get; set; }
-        public int? AccommodationTypeID { get; set; }
-        //  public IEnumerable<AccommodationPackage> AccommodationTypes { get;  set; }
     }
     public class AccommodationActionModel
     {
@@ -24,7 +21,7 @@ namespace HMS.Web.Areas.Dashboard.ViewModel
 
         public string Description { get; set; }
 
-        public IEnumerable<AccommodationType> AccommodationTypes { get; set; }
+        public IEnumerable<Accommodation> Accommodation { get; set; }
     }
 
 }

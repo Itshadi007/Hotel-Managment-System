@@ -15,65 +15,51 @@ namespace HMS.Web.Areas.Dashboard.Controllers
         // GET: Dashboard/Accommodations
         AccommodationServices accommodationServices = new AccommodationServices();
 
-        public ActionResult Index(string Search_Bar, int? AccommodationTypeID, int? PageNo)
+        public ActionResult Index(string Search_Bar)
         {
-            int recordCount = 5;
-
-            PageNo = PageNo ?? 1;
             AccommodationListingModel model = new AccommodationListingModel();
+
             model.Search_Bar = Search_Bar;
-            model.AccommodationTypeID = AccommodationTypeID;
-
-            model.accommodationpackages = accommodationServices.SearchAccommodationPackage(Search_Bar, AccommodationTypeID, PageNo.Value, recordCount);
-            // var abc = accommodationPakageServices.SearchAccommodationPackage(Search_Bar);
-
-     //       model.AccommodationTypes = (IEnumerable<AccommodationType>)accommodationServices.GetAllAccommodationTypes();
-
-            var totalRecords = accommodationServices.SearchAccommodationPackageCount(Search_Bar, AccommodationTypeID);
-
-
-            //   model.pager = new Pager(totalRecords, PageNo, recordCount);
-
+            model.accommodation = accommodationServices.SearchAccommodation(Search_Bar);
             return View(model);
+          }
 
-
-        }
         [HttpGet]
         public ActionResult Action(int? ID)
         {
             AccommodationActionModel model = new AccommodationActionModel();
             if (ID.HasValue)// trying to Edit
             {
-                var accommodationPackage = accommodationServices.GetAccommodationType(ID.Value);
+                var accommodationPackage = accommodationServices.GetAccommodation(ID.Value);
 
                 model.ID = accommodationPackage.ID;
                 model.Name = accommodationPackage.Name;
-           }
-       //     model.AccommodationTypes = (IEnumerable<AccommodationType>)accommodationServices.GetAllAccommodationTypes();
+
+            }
+            model.Accommodation = accommodationServices.GetAllAccommodation();
 
             return PartialView("_Action", model);
         }
         [HttpPost]
-        public JsonResult Action(AccommodationActionModel model)
+        public JsonResult Action(AccommodationPackageActionModel model)
         {
             JsonResult jsonResult = new JsonResult();
             var result = false;
             if (model.ID > 0)// Trying to Edit Record Base On ID
 
             {
-                var accommodationPackage = accommodationServices.GetAccommodationType(model.ID);
-                accommodationPackage.AccommodationType = (AccommodationType)model.AccommodationTypes;
-                accommodationPackage.Name = model.Name;
-             result = accommodationServices.UpdateAccommodationType(accommodationPackage);
+                var accommodationPackage = accommodationServices.GetAccommodation(model.ID);
+               
+                result = accommodationServices.UpdateAccommodation(accommodationPackage);
 
             }
             else
 
             {
-                AccommodationPackage accommodationPackage = new AccommodationPackage();
-                accommodationPackage.Name = model.Name;
-                accommodationPackage.AccommodationTypeID = model.ID;
-                result = accommodationServices.SaveAccommodationType(accommodationPackage);
+                Accommodation accommodation = new Accommodation();
+                accommodation.Name = model.Name;
+      
+                result = accommodationServices.SaveAccommodation(accommodation);
 
             }
             if (result)
@@ -94,27 +80,25 @@ namespace HMS.Web.Areas.Dashboard.Controllers
         {
             AccommodationPackageActionModel model = new AccommodationPackageActionModel();
 
-            var accommodationPackage = accommodationServices.GetAccommodationType(ID);
+            var accommodationPackage = accommodationServices.GetAccommodation(ID);
 
             model.ID = accommodationPackage.ID;
             model.Name = accommodationPackage.Name;
-            model.AccommodationTypeID = accommodationPackage.AccommodationTypeID;
-            model.NoOfRoom = accommodationPackage.NoOfRoom;
-            model.FeePerNight = accommodationPackage.FeePerNight;
-            model.AccommodationType = accommodationPackage.AccommodationType;
+     
 
             return PartialView("_Delete", model);
         }
 
+
         [HttpPost]
-        public JsonResult Delete(AccommodationActionModel model)
+        public JsonResult Delete(AccommodationPackageActionModel model)
         {
             JsonResult jsonResult = new JsonResult();
             var result = false;
-            var accommodationPackage = accommodationServices.GetAccommodationType(model.ID);
+            var accommodationPackage = accommodationServices.GetAccommodation(model.ID);
 
 
-            result = accommodationServices.DeleteAccommodationType(accommodationPackage);
+            result = accommodationServices.DeleteAccommodation(accommodationPackage);
 
             if (result)
             {
@@ -130,4 +114,6 @@ namespace HMS.Web.Areas.Dashboard.Controllers
 
         }
     }
+
+
 }

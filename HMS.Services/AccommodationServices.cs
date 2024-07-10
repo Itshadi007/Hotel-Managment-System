@@ -11,92 +11,79 @@ namespace HMS.Services
 {
     public class AccommodationServices
     {
-        public IEnumerable<AccommodationPackage> GetAllAccommodationTypes()
+        public IEnumerable<Accommodation> GetAllAccommodation()
         {
             var context = new HMSContext();
 
-            return context.Accommodationspackages.AsEnumerable();
+            return context.accommodations;
         }
 
-        public List<AccommodationPackage> SearchAccommodationPackage(string searchBar, int? accommodationTypeID, int pageNo, int recordCount)
+        public IEnumerable<Accommodation> SearchAccommodation(string Search_Bar)
         {
             //using ()
+            var context = new HMSContext();
+
+
+            var accommodation = context.accommodations.AsQueryable();
+
+
+            if (!string.IsNullOrEmpty(Search_Bar))
             {
-                var context = new HMSContext();
-                var accommodationPackage = context.Accommodationspackages.AsQueryable();
-                //   var ab = query.Include(x => x.AccommodationType);
-                if (!string.IsNullOrEmpty(searchBar))
-                {
-                    accommodationPackage = accommodationPackage.Where(a => a.Name.ToLower().Contains(searchBar.ToLower()));
-                }
-
-                if (accommodationTypeID.HasValue && accommodationTypeID.Value > 0)
-                {
-                    accommodationPackage = accommodationPackage.Where(a => a.AccommodationTypeID == accommodationTypeID.Value);
-                }
-
-
-                var skip = (pageNo - 1) * recordCount;
-
-
-                return accommodationPackage.OrderBy(x => x.Name).Skip(skip).Take(recordCount).ToList();
-
-                //  return accommodationPackage.ToList();
+                accommodation = accommodation.Where(a => a.Name.ToLower().Contains(Search_Bar.ToLower()));
             }
+            return accommodation;
         }
 
 
-        public int SearchAccommodationPackageCount(string searchBar, int? accommodationTypeID)
+        public int SearchAccommodationCount(string searchBar, int? accommodationTypeID)
         {
             //using ()
             {
                 var context = new HMSContext();
-                var accommodationPackage = context.Accommodationspackages.AsQueryable();
+                var accommodation = context.accommodations.AsQueryable();
                 //   var ab = query.Include(x => x.AccommodationType);
                 if (!string.IsNullOrEmpty(searchBar))
                 {
-                    accommodationPackage = accommodationPackage.Where(a => a.Name.ToLower().Contains(searchBar.ToLower()));
+                    accommodation = accommodation.Where(a => a.Name.ToLower().Contains(searchBar.ToLower()));
                 }
 
                 if (accommodationTypeID.HasValue && accommodationTypeID.Value > 0)
                 {
-                    accommodationPackage = accommodationPackage.Where(a => a.AccommodationTypeID == accommodationTypeID.Value);
+                    accommodation = accommodation.Where(a => a.AccommodationPackageID == accommodationTypeID.Value);
                 }
 
 
 
                 //   return accommodationPackage.Count();
 
-                return accommodationPackage.Count();
+                return accommodation.Count();
             }
         }
 
 
 
-        public AccommodationPackage GetAccommodationType(int ID)
+        public Accommodation GetAccommodation(int ID)
         {
             var context = new HMSContext();
 
-
-
-            return context.Accommodationspackages.Find(ID);
+            return context.accommodations.Find(ID);
 
         }
-        public bool SaveAccommodationType(AccommodationPackage accommodationPackage)
+        public bool SaveAccommodation(Accommodation accommodation)
         {
             var context = new HMSContext();
 
-            context.Accommodationspackages.Add(accommodationPackage);
+            context.accommodations.Add(accommodation);
 
             return context.SaveChanges() > 0;
         }
 
-        public bool UpdateAccommodationType(AccommodationPackage accommodationPackage)
+        public bool UpdateAccommodation(Accommodation accommodation)
         {
             var context = new HMSContext();
 
 
-            context.Accommodationspackages.AddOrUpdate(accommodationPackage);
+            context.accommodations.AddOrUpdate(accommodation);
 
             //     context.Entry(accommodationType).State = System.Data.Entity.EntityState.Modified;
 
@@ -104,15 +91,15 @@ namespace HMS.Services
 
         }
 
-        public bool DeleteAccommodationType(AccommodationPackage accommodationPackage)
+        public bool DeleteAccommodation(Accommodation accommodatione)
         {
             using (var context = new HMSContext())
             {
-                AccommodationPackage ab = new AccommodationPackage();
-                ab = context.Accommodationspackages.Find(accommodationPackage.ID);
+                Accommodation ab = new Accommodation();
+                ab = context.accommodations.Find(accommodatione.ID);
                 if (ab != null)
                 {
-                    context.Accommodationspackages.Remove(ab);
+                    context.accommodations.Remove(ab);
                     return context.SaveChanges() > 0;
                 }
                 return false; // Return false if accommodationTypeToDelete is null
