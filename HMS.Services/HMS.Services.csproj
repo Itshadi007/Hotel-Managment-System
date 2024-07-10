@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccommodationPakageServices.cs" />
+    <Compile Include="AccommodationServices.cs" />
     <Compile Include="AccommodationTypesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

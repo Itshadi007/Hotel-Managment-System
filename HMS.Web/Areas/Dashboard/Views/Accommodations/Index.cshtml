@@ -1,0 +1,63 @@
+﻿@model HMS.Web.Areas.Dashboard.ViewModel.AccommodationListingModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Accommodation</h2>
+
+<hr />
+<form class="d-flex flex-wrap gap-2 align-items-center">
+
+    <div class="input-group mb-4">
+
+
+
+        <input type="text" name="Search_Bar" value="@Model.Search_Bar" class="form-control" placeholder="Search Here">
+       @*@if (Model.AccommodationTypes != null && Model.AccommodationTypes.Count() > 0)*@
+        
+            <select name="AccommodationTypeID" class="form-control">
+                <option value="0">
+                    Select Type
+                </option>
+                @*@foreach (var accommodationTypes in Model.AccommodationTypes)
+                {
+                    <option value="@accommodationTypes.ID" @(accommodationTypes.ID == Model.AccommodationTypeID ? "selected" : string.Empty )>
+                        @accommodationTypes.Name
+                    </option>
+                }*@
+            </select>
+        
+
+        <button class="btn btn-outline-primary mb-lg-1" type="submit"> <i class="fa-solid fa-magnifying-glass me-1"></i>Search</button>
+        <a class="btn btn-outline-secondary" href="@Url.Action("index", "Accommodations")">  <i class="fa-solid fa-redo-alt me-1"></i>Reset</a>
+        <button data-href="@Url.Action("Action", "Accommodations")" class="data-btn btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#actionModal">  <i class="fa-solid fa-plus me-1"></i>Create</button>
+
+
+    </div>
+
+</form>
+@{Html.RenderPartial("_Listing", Model);}
+
+
+<!-- Modal -->
+<div class="modal fade" id="actionModal" tabindex="-1">
+    <div class="modal-dialog">
+
+    </div>
+</div>
+
+<script>
+    $(".data-btn").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href"),
+            success: function (response) {
+                $("#actionModal .modal-dialog").html(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error: " + textStatus + " " + errorThrown);
+                // You can show an error message to the user here if needed
+            }
+        });
+    });
+</script>

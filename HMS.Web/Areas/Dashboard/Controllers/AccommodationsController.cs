@@ -10,69 +10,61 @@ using System.Web.Mvc;
 
 namespace HMS.Web.Areas.Dashboard.Controllers
 {
-    public class AccommodationPackagesController : Controller
+    public class AccommodationsController : Controller
     {
-        AccommodationPakageServices accommodationPakageServices = new AccommodationPakageServices();
+        // GET: Dashboard/Accommodations
+        AccommodationServices accommodationServices = new AccommodationServices();
 
-        AccommodationTypesService AccommodationTypesService = new AccommodationTypesService();
-
-        public ActionResult Index(string Search_Bar, int? AccommodationTypeID,int? PageNo)
+        public ActionResult Index(string Search_Bar, int? AccommodationTypeID, int? PageNo)
         {
             int recordCount = 5;
 
             PageNo = PageNo ?? 1;
-            AccommodationPackageListingModel model = new AccommodationPackageListingModel();
-
+            AccommodationListingModel model = new AccommodationListingModel();
             model.Search_Bar = Search_Bar;
             model.AccommodationTypeID = AccommodationTypeID;
-            model.accommodationpackages = accommodationPakageServices.SearchAccommodationPackage(Search_Bar, AccommodationTypeID, PageNo.Value,recordCount);
-            // var abc = accommodationPakageServices.SearchAccommodationPackage(Search_Bar);
-            model.AccommodationTypes = AccommodationTypesService.GetAllAccommodationTypes();
 
-            var totalRecords = accommodationPakageServices.SearchAccommodationPackageCount(Search_Bar, AccommodationTypeID);
-            model.pager = new Pager(totalRecords, PageNo, recordCount);
+            model.accommodationpackages = accommodationServices.SearchAccommodationPackage(Search_Bar, AccommodationTypeID, PageNo.Value, recordCount);
+            // var abc = accommodationPakageServices.SearchAccommodationPackage(Search_Bar);
+
+     //       model.AccommodationTypes = (IEnumerable<AccommodationType>)accommodationServices.GetAllAccommodationTypes();
+
+            var totalRecords = accommodationServices.SearchAccommodationPackageCount(Search_Bar, AccommodationTypeID);
+
+
+            //   model.pager = new Pager(totalRecords, PageNo, recordCount);
 
             return View(model);
 
 
         }
-
         [HttpGet]
         public ActionResult Action(int? ID)
         {
-            AccommodationPackageActionModel model = new AccommodationPackageActionModel();
+            AccommodationActionModel model = new AccommodationActionModel();
             if (ID.HasValue)// trying to Edit
             {
-                var accommodationPackage = accommodationPakageServices.GetAccommodationType(ID.Value);
+                var accommodationPackage = accommodationServices.GetAccommodationType(ID.Value);
 
                 model.ID = accommodationPackage.ID;
                 model.Name = accommodationPackage.Name;
-                model.AccommodationTypeID = accommodationPackage.AccommodationTypeID;
-                model.NoOfRoom = accommodationPackage.NoOfRoom;
-                model.FeePerNight = accommodationPackage.FeePerNight;
-                model.AccommodationType = accommodationPackage.AccommodationType;
-
-
-            }
-            model.AccommodationTypes = AccommodationTypesService.GetAllAccommodationTypes();
+           }
+       //     model.AccommodationTypes = (IEnumerable<AccommodationType>)accommodationServices.GetAllAccommodationTypes();
 
             return PartialView("_Action", model);
         }
         [HttpPost]
-        public JsonResult Action(AccommodationPackageActionModel model)
+        public JsonResult Action(AccommodationActionModel model)
         {
             JsonResult jsonResult = new JsonResult();
             var result = false;
             if (model.ID > 0)// Trying to Edit Record Base On ID
 
             {
-                var accommodationPackage = accommodationPakageServices.GetAccommodationType(model.ID);
-                accommodationPackage.AccommodationType = model.AccommodationType;
+                var accommodationPackage = accommodationServices.GetAccommodationType(model.ID);
+                accommodationPackage.AccommodationType = (AccommodationType)model.AccommodationTypes;
                 accommodationPackage.Name = model.Name;
-                accommodationPackage.NoOfRoom = model.NoOfRoom;
-                accommodationPackage.FeePerNight = model.FeePerNight;
-                accommodationPackage.AccommodationTypeID = model.AccommodationTypeID;
-                result = accommodationPakageServices.UpdateAccommodationType(accommodationPackage);
+             result = accommodationServices.UpdateAccommodationType(accommodationPackage);
 
             }
             else
@@ -81,10 +73,7 @@ namespace HMS.Web.Areas.Dashboard.Controllers
                 AccommodationPackage accommodationPackage = new AccommodationPackage();
                 accommodationPackage.Name = model.Name;
                 accommodationPackage.AccommodationTypeID = model.ID;
-                accommodationPackage.AccommodationTypeID = model.AccommodationTypeID;
-                accommodationPackage.NoOfRoom = model.NoOfRoom;
-                accommodationPackage.FeePerNight = model.FeePerNight;   
-                result = accommodationPakageServices.SaveAccommodationType(accommodationPackage);
+                result = accommodationServices.SaveAccommodationType(accommodationPackage);
 
             }
             if (result)
@@ -105,7 +94,7 @@ namespace HMS.Web.Areas.Dashboard.Controllers
         {
             AccommodationPackageActionModel model = new AccommodationPackageActionModel();
 
-            var accommodationPackage = accommodationPakageServices.GetAccommodationType(ID);
+            var accommodationPackage = accommodationServices.GetAccommodationType(ID);
 
             model.ID = accommodationPackage.ID;
             model.Name = accommodationPackage.Name;
@@ -117,16 +106,15 @@ namespace HMS.Web.Areas.Dashboard.Controllers
             return PartialView("_Delete", model);
         }
 
-
         [HttpPost]
-        public JsonResult Delete(AccommodationPackageActionModel model)
+        public JsonResult Delete(AccommodationActionModel model)
         {
             JsonResult jsonResult = new JsonResult();
             var result = false;
-            var accommodationPackage = accommodationPakageServices.GetAccommodationType(model.ID);
+            var accommodationPackage = accommodationServices.GetAccommodationType(model.ID);
 
 
-            result = accommodationPakageServices.DeleteAccommodationType(accommodationPackage);
+            result = accommodationServices.DeleteAccommodationType(accommodationPackage);
 
             if (result)
             {
