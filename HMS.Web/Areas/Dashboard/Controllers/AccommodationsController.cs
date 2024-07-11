@@ -24,7 +24,7 @@ namespace HMS.Web.Areas.Dashboard.Controllers
             AccommodationListingModel model = new AccommodationListingModel();
 
             model.Search_Bar = Search_Bar;
-            model.AccommodationPackageID = AccommodationpackageID;
+            model.AccommodationPackageID = (int?)AccommodationpackageID;
             model.accommodation = accommodationServices.SearchAccommodation(Search_Bar, AccommodationpackageID, PageNo.Value, recordCount);
             // var abc = accommodationPakageServices.SearchAccommodationPackage(Search_Bar);
             model.AccommodationPackages = accommodationPakageServices.GetAllAccommodationPackage();

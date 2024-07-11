@@ -177,6 +177,7 @@
     <Compile Include="Areas\Dashboard\ViewModel\AccommodationListingModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\AccommodationPackageListingModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\AccommodationTypesModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModel\UserModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -235,6 +236,10 @@
     <Content Include="Areas\Dashboard\Views\Accommodations\_Action.cshtml" />
     <Content Include="Areas\Dashboard\Views\Accommodations\_Delete.cshtml" />
     <Content Include="Areas\Dashboard\Views\Accommodations\_Listing.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\_Listing.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -285,7 +290,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dashboard\Data\" />
     <Folder Include="Areas\Dashboard\Views\AccomoodationTypes\" />
-    <Folder Include="Areas\Dashboard\Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -315,9 +319,9 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HMS.Entity\HMS.Entity.csproj">
+    <ProjectReference Include="..\HMS.Entity\HMS.Entities.csproj">
       <Project>{2D261695-198F-49AD-A698-D5D850BE2C1D}</Project>
-      <Name>HMS.Entity</Name>
+      <Name>HMS.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\HMS.Services\HMS.Services.csproj">
       <Project>{2683EC96-3038-4349-BFF7-660CACAA00C2}</Project>

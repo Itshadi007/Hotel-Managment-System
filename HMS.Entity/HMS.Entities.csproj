@@ -58,6 +58,7 @@
     <Compile Include="AccommodationPackage.cs" />
     <Compile Include="AccommodationType.cs" />
     <Compile Include="Booking.cs" />
+    <Compile Include="HMSUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

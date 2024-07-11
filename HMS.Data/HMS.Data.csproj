@@ -70,9 +70,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HMS.Entity\HMS.Entity.csproj">
+    <ProjectReference Include="..\HMS.Entity\HMS.Entities.csproj">
       <Project>{2D261695-198F-49AD-A698-D5D850BE2C1D}</Project>
-      <Name>HMS.Entity</Name>
+      <Name>HMS.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
