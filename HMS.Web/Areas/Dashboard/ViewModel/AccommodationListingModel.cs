@@ -13,7 +13,7 @@ namespace HMS.Web.Areas.Dashboard.ViewModel
         public string Search_Bar { get; set; }
         public IEnumerable<AccommodationPackage> AccommodationPackages { get; set; }
         public Pager pager { get; set; }
-        public object AccommodationPackageID { get; set; }
+        public int AccommodationPackageID { get; set; }
     }
     public class AccommodationActionModel
     {
