@@ -43,7 +43,7 @@ namespace HMS.Web.Areas.Dashboard.Controllers
             AccommodationPackageActionModel model = new AccommodationPackageActionModel();
             if (ID.HasValue)// trying to Edit
             {
-                var accommodationPackage = accommodationPakageServices.GetAccommodationType(ID.Value);
+                var accommodationPackage = accommodationPakageServices.GetAccommodationPackage(ID.Value);
 
                 model.ID = accommodationPackage.ID;
                 model.Name = accommodationPackage.Name;
@@ -66,7 +66,7 @@ namespace HMS.Web.Areas.Dashboard.Controllers
             if (model.ID > 0)// Trying to Edit Record Base On ID
 
             {
-                var accommodationPackage = accommodationPakageServices.GetAccommodationType(model.ID);
+                var accommodationPackage = accommodationPakageServices.GetAccommodationPackage(model.ID);
                 accommodationPackage.AccommodationType = model.AccommodationType;
                 accommodationPackage.Name = model.Name;
                 accommodationPackage.NoOfRoom = model.NoOfRoom;
@@ -80,7 +80,7 @@ namespace HMS.Web.Areas.Dashboard.Controllers
             {
                 AccommodationPackage accommodationPackage = new AccommodationPackage();
                 accommodationPackage.Name = model.Name;
-                accommodationPackage.AccommodationTypeID = model.ID;
+            //    accommodationPackage.AccommodationTypeID = model.ID;
                 accommodationPackage.AccommodationTypeID = model.AccommodationTypeID;
                 accommodationPackage.NoOfRoom = model.NoOfRoom;
                 accommodationPackage.FeePerNight = model.FeePerNight;   
@@ -105,7 +105,7 @@ namespace HMS.Web.Areas.Dashboard.Controllers
         {
             AccommodationPackageActionModel model = new AccommodationPackageActionModel();
 
-            var accommodationPackage = accommodationPakageServices.GetAccommodationType(ID);
+            var accommodationPackage = accommodationPakageServices.GetAccommodationPackage(ID);
 
             model.ID = accommodationPackage.ID;
             model.Name = accommodationPackage.Name;
@@ -123,7 +123,7 @@ namespace HMS.Web.Areas.Dashboard.Controllers
         {
             JsonResult jsonResult = new JsonResult();
             var result = false;
-            var accommodationPackage = accommodationPakageServices.GetAccommodationType(model.ID);
+            var accommodationPackage = accommodationPakageServices.GetAccommodationPackage(model.ID);
 
 
             result = accommodationPakageServices.DeleteAccommodationType(accommodationPackage);

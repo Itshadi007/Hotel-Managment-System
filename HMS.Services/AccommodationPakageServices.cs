@@ -12,7 +12,7 @@ namespace HMS.Services
 {
     public class AccommodationPakageServices
     {
-        public IEnumerable<AccommodationPackage> GetAllAccommodationTypes()
+        public IEnumerable<AccommodationPackage> GetAllAccommodationPackage()
         {
             var context = new HMSContext();
 
@@ -74,11 +74,9 @@ namespace HMS.Services
 
 
 
-        public AccommodationPackage GetAccommodationType(int ID)
+        public AccommodationPackage GetAccommodationPackage(int ID)
         {
             var context = new HMSContext();
-
-
 
             return context.Accommodationspackages.Find(ID);
 

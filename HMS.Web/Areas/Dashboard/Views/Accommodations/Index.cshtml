@@ -14,20 +14,21 @@
 
 
         <input type="text" name="Search_Bar" value="@Model.Search_Bar" class="form-control" placeholder="Search Here">
-       @*@if (Model.AccommodationTypes != null && Model.AccommodationTypes.Count() > 0)*@
-        
+       @if (Model.AccommodationPackages != null && Model.AccommodationPackages.Count() > 0)
+       {
             <select name="AccommodationTypeID" class="form-control">
                 <option value="0">
                     Select Type
                 </option>
-                @*@foreach (var accommodationTypes in Model.AccommodationTypes)
+                @foreach (var accommodationPackages in Model.AccommodationPackages)
                 {
-                    <option value="@accommodationTypes.ID" @(accommodationTypes.ID == Model.AccommodationTypeID ? "selected" : string.Empty )>
-                        @accommodationTypes.Name
+                    <option value="@accommodationPackages.ID" @*@(accommodationPackages.ID == Model.AccommodationPackageID ? "selected" : string.Empty*@ )>
+                        @accommodationPackages.Name
                     </option>
-                }*@
+                }
             </select>
-        
+
+       }
 
         <button class="btn btn-outline-primary mb-lg-1" type="submit"> <i class="fa-solid fa-magnifying-glass me-1"></i>Search</button>
         <a class="btn btn-outline-secondary" href="@Url.Action("index", "Accommodations")">  <i class="fa-solid fa-redo-alt me-1"></i>Reset</a>

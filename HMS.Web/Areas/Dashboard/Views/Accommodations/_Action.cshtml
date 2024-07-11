@@ -19,19 +19,22 @@
         </div>
         <div class="modal-body">
             <form id="actionForm">
-                <input type="hidden" name="ID" value="@Model.ID" />
-                <div class="mb-3">
-                    <label class="form-label">Accommodation Type</label>
-                    <select class="form-control" name="accommodationTypeID">
-                    @*@if(Model.AccommodationTypes != null)
+                @if (Model.ID > 0)
                 {
-                        foreach (var accommodationType in Model.AccommodationTypes)
+                    <input type="hidden" name="ID" value="@Model.ID" />
+                }
+                <div class="mb-3">
+                    <label class="form-label">Accommodation Packages</label>
+                    <select class="form-control" name="AccommodationPackageID">
+                        @if (Model.AccommodationPackages != null)
                         {
-                            <option value="@accommodationType.ID" @(accommodationType.ID == Model.AccommodationTypeID ? "selected" : string.Empty)>
-                                @accommodationType.Name
-                            </option>
+                            foreach (var accommodationPackage in Model.AccommodationPackages)
+                            {
+                                <option value="@accommodationPackage.ID" @(accommodationPackage.ID == Model.AccommodationPackageID ? "selected" : string.Empty)>
+                                    @accommodationPackage.Name
+                                </option>
+                            }
                         }
-                }*@
                     </select>
 
                 </div>
@@ -42,15 +45,11 @@
 
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">No Of Rooms</label>
-                    <input class="form-control" name="NoOfRooms" placeholder="Enter No of Rooms " @*value="@Model.NoOfRoom"*@>
+                    <label class="form-label">Description</label>
+                    <textarea name="Description" class="form-control" placeholder="Enter Description">@Model.Description</textarea>
 
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Fee Per Night</label>
-                    <input class="form-control" name="FeePerNight" placeholder="Enter Fee Per Night" @*value="@Model.FeePerNight"*@>
 
-                </div>
 
 
             </form>
@@ -68,12 +67,14 @@
 <script>
     $("#actionButton").click(function ()
     {
+        debugger;
+        var dsata = $("#actionForm").serialize();
           $.ajax({
-              url: '@Url.Action("Action", "AccommodationPackages")',
+              url: '@Url.Action("Action", "Accommodations")',
               type :"post",
               data: $("#actionForm").serialize(),
               success: function (response) {
-                  
+
           if (response.Success) {
               location.reload();
           }

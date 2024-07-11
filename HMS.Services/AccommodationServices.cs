@@ -18,24 +18,31 @@ namespace HMS.Services
             return context.accommodations;
         }
 
-        public IEnumerable<Accommodation> SearchAccommodation(string Search_Bar)
+        public List<Accommodation> SearchAccommodation(string Search_Bar, int? AccommodationpackageID, int pageNo, int recordCount)
         {
             //using ()
             var context = new HMSContext();
-
-
             var accommodation = context.accommodations.AsQueryable();
-
-
+            //   var ab = query.Include(x => x.AccommodationType);
             if (!string.IsNullOrEmpty(Search_Bar))
             {
                 accommodation = accommodation.Where(a => a.Name.ToLower().Contains(Search_Bar.ToLower()));
             }
-            return accommodation;
+
+            if (AccommodationpackageID.HasValue && AccommodationpackageID.Value > 0)
+            {
+                accommodation = accommodation.Where(a => a.AccommodationPackageID == AccommodationpackageID.Value);
+            }
+
+
+            var skip = (pageNo - 1) * recordCount;
+
+
+            return accommodation.OrderBy(x => x.Name).Skip(skip).Take(recordCount).ToList();
         }
 
 
-        public int SearchAccommodationCount(string searchBar, int? accommodationTypeID)
+        public int SearchAccommodationCount(string searchBar, int? AccommodationpackageID)
         {
             //using ()
             {
@@ -47,9 +54,9 @@ namespace HMS.Services
                     accommodation = accommodation.Where(a => a.Name.ToLower().Contains(searchBar.ToLower()));
                 }
 
-                if (accommodationTypeID.HasValue && accommodationTypeID.Value > 0)
+                if (AccommodationpackageID.HasValue && AccommodationpackageID.Value > 0)
                 {
-                    accommodation = accommodation.Where(a => a.AccommodationPackageID == accommodationTypeID.Value);
+                    accommodation = accommodation.Where(a => a.AccommodationPackageID == AccommodationpackageID.Value);
                 }
 
 

@@ -172,6 +172,7 @@
     <Compile Include="Areas\Dashboard\Controllers\AccommodationsController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\AccomoodationTypesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\UsersController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\AccommodationListingModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\AccommodationPackageListingModel.cs" />
@@ -284,6 +285,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dashboard\Data\" />
     <Folder Include="Areas\Dashboard\Views\AccomoodationTypes\" />
+    <Folder Include="Areas\Dashboard\Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
