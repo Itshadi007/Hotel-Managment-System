@@ -1,54 +1,48 @@
 ﻿
-@model HMS.Web.Areas.Dashboard.ViewModel.AccommodationActionModel
+@model HMS.Web.Areas.Dashboard.ViewModel.UsersActionModel
 
 @if (Model != null)
 {
     <div class="modal-content">
         <div class="modal-header">
             <h1 class="modal-title fs-5">
-                @if (Model.ID > 0)
+                @if (Model.ID !=null)
                 {
-                    <span>Edit Accommodation </span>
+                    <span>Edit User </span>
                 }
                 else
                 {
-                    <span> Create Accommodation</span>
+                    <span> Create User</span>
                 }
             </h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <form id="actionForm">
-                @if (Model.ID > 0)
-                {
-                    <input type="hidden" name="ID" value="@Model.ID" />
-                }
+                <input type="hidden" name="ID" value="@Model.ID !=null" />
+
                 <div class="mb-3">
-                    <label class="form-label">Accommodation Packages</label>
-                    <select class="form-control" name="AccommodationPackageID">
-                        @if (Model.AccommodationPackages != null)
-                        {
-                            foreach (var accommodationPackage in Model.AccommodationPackages)
-                            {
-                                <option value="@accommodationPackage.ID" @(accommodationPackage.ID == Model.AccommodationPackageID ? "selected" : string.Empty)>
-                                    @accommodationPackage.Name
-                                </option>
-                            }
-                        }
-                    </select>
+                    <label class="form-label">Full Name</label>
+                    <input class="form-control" name="Name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Full Name" value="@Model.FullName">
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input class="form-control" name="Email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" value="@Model.Email">
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">UserName</label>
+                    <input class="form-control" name="UserName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter UserName" value="@Model.UserName">
 
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input class="form-control" name="Name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name" value="@Model.Name">
+                    <label class="form-label">City</label>
+                    <input class="form-control" name="City" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter City Name" value="@Model.City">
 
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea name="Description" class="form-control" placeholder="Enter Description">@Model.Description</textarea>
 
-                </div>
 
 
 
@@ -70,7 +64,7 @@
         debugger;
         var dsata = $("#actionForm").serialize();
           $.ajax({
-              url: '@Url.Action("Action", "Accommodations")',
+              url: '@Url.Action("Action", "Users")',
               type :"post",
               data: $("#actionForm").serialize(),
               success: function (response) {

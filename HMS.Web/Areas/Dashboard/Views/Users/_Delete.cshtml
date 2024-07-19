@@ -1,12 +1,12 @@
 ﻿
-@model HMS.Web.Areas.Dashboard.ViewModel.AccommodationActionModel
+@model HMS.Web.Areas.Dashboard.ViewModel.UsersActionModel
 
 @if (Model != null)
 {
     <div class="modal-content">
         <div class="modal-header">
             <h1 class="modal-title fs-5">
-                <span >Delete Accommodation Type</span>
+                <span >Delete User</span>
             </h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -32,13 +32,13 @@
     $("#actionButton").click(function ()
     {
           $.ajax({
-              url: '@Url.Action("Delete", "Accommodations")',
+              url: '@Url.Action("Delete", "Users")',
               type :"post",
               data: $("#actionForm").serialize(),
               success: function (response) {
-                  debugger;
+             //     debugger;
                   if (response.Success) {
-                      window.location.href ="@Url.Action("Index", "Accommodations")";
+                      window.location.href ="@Url.Action("Index", "Users")";
           }
           else
           {

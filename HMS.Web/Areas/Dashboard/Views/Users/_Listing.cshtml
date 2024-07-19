@@ -31,20 +31,20 @@
                             @("No Type")
                         }*@
 
-
+                        --
 
                     </td>
                     <td>@user.UserName</td>
 
                     <td>
-                        <button data-href="@Url.Action("Action", "Accommodations", new { ID = user.Id })"
+                        <button data-href="@Url.Action("Action", "Users", new { ID = user.Id })"
                                 type="button"
                                 class="data-btn btn btn-success"
                                 data-bs-toggle="modal"
                                 data-bs-target="#actionModal">
                             <i class="fa-solid fa-trash-alt me-1"></i>Edit
                         </button>
-                        <button data-href="@Url.Action("Delete", "Accommodations", new { ID = user.Id })" type="button" class="data-btn btn btn-danger" data-bs-toggle="modal"
+                        <button data-href="@Url.Action("Delete", "Users", new { ID = user.Id })" type="button" class="data-btn btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#actionModal">
                             <i class="fa-solid fa-edit me-1"></i>Delete
                         </button>
@@ -66,12 +66,12 @@
                 @if (Model.pager.CurrentPage > 1)
                 {
                     <li class="page-item">
-                        <a class="page-link" href="@Url.Action("Index","Accommodations")">
+                        <a class="page-link" href="@Url.Action("Index","Users")">
                             First
                         </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="@Url.Action("Index","Accommodations" , new { pageNo = Model.pager.CurrentPage-1 , search_Bar = Model.Search_Bar, AccommodationTypeID = Model.RoleID})"> Previous</a>
+                        <a class="page-link" href="@Url.Action("Index","Users" , new { pageNo = Model.pager.CurrentPage-1 , search_Bar = Model.Search_Bar, AccommodationTypeID = Model.RoleID})"> Previous</a>
                     </li>
                 }
 
@@ -79,17 +79,17 @@
                 {
                     <li class="page-item @(page == Model.pager.CurrentPage ? "active" : "")">
 
-                        <a class="page-link" href="@Url.Action("Index","Accommodations" , new { pageNo = page, search_Bar = Model.Search_Bar, AccommodationTypeID = Model.RoleID })">@page</a>
+                        <a class="page-link" href="@Url.Action("Index","Users" , new { pageNo = page, search_Bar = Model.Search_Bar, AccommodationTypeID = Model.RoleID })">@page</a>
                     </li>
                 }
 
                 @if (Model.pager.CurrentPage < Model.pager.TotalPages)
                 {
                     <li class="page-item">
-                        <a class="page-link" href="@Url.Action("Index","Accommodations" , new { pageNo = Model.pager.CurrentPage+1 , search_Bar = Model.Search_Bar, AccommodationTypeID = Model.RoleID})">Next</a>
+                        <a class="page-link" href="@Url.Action("Index","Users" , new { pageNo = Model.pager.CurrentPage+1 , search_Bar = Model.Search_Bar, AccommodationTypeID = Model.RoleID})">Next</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="@Url.Action("Index","Accommodations" , new { pageNo = Model.pager.TotalPages , search_Bar = Model.Search_Bar, AccommodationTypeID = Model.RoleID})">Last</a>
+                        <a class="page-link" href="@Url.Action("Index","Users" , new { pageNo = Model.pager.TotalPages , search_Bar = Model.Search_Bar, AccommodationTypeID = Model.RoleID})">Last</a>
                     </li>
                 }
 

@@ -51,6 +51,10 @@ namespace HMS.Web.Controllers
                 _userManager = value;
             }
         }
+        public IQueryable<ApplicationUser> GetAllUsers()
+        {
+            return UserManager.Users;
+        }
 
         //
         // GET: /Account/Login
