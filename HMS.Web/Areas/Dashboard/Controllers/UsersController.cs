@@ -164,7 +164,7 @@ namespace HMS.Web.Areas.Dashboard.Controllers
 
                 //Users.FullName = model.FullName;
                 //Users.Address = model.Address;
-           //     Users.UserName = model.UserName;
+       //       Users.UserName = model.UserName;
                 //Users.City = model.City;
             //    Users.Email = model.Email;
 
